@@ -14,12 +14,18 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.46.1
         version: 2.46.1
+      '@tanstack/react-query':
+        specifier: ^5.60.5
+        version: 5.60.5(react@18.3.1)
       '@worldcoin/idkit':
         specifier: ^1.3.0
         version: 1.3.0(@types/react-dom@18.3.0)(@types/react@18.3.4)(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.10)(typescript@5.5.4)
       '@worldcoin/minikit-js':
         specifier: 1.1.1
         version: 1.1.1(@types/react@18.3.4)(react@18.3.1)(typescript@5.5.4)(viem@2.20.0(typescript@5.5.4))
+      '@worldcoin/minikit-react':
+        specifier: ^1.2.0
+        version: 1.2.0(@tanstack/react-query@5.60.5(react@18.3.1))(@types/react@18.3.4)(react@18.3.1)(typescript@5.5.4)(viem@2.20.0(typescript@5.5.4))
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -496,6 +502,14 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1 || >= 4.0.0-alpha.20'
 
+  '@tanstack/query-core@5.60.5':
+    resolution: {integrity: sha512-jiS1aC3XI3BJp83ZiTuDLerTmn9P3U95r6p+6/SNauLJaYxfIC4dMuWygwnBHIZxjn2zJqEpj3nysmPieoxfPQ==}
+
+  '@tanstack/react-query@5.60.5':
+    resolution: {integrity: sha512-M77bOsPwj1wYE56gk7iJvxGAr4IC12NWdIDhT+Eo8ldkWRHMvIR8I/rufIvT1OXoV/bl7EECwuRuMlxxWtvW2Q==}
+    peerDependencies:
+      react: ^18 || ^19
+
   '@types/js-cookie@2.2.6':
     resolution: {integrity: sha512-+oY0FDTO2GYKEV0YPvSshGq9t7YozVkgvXLty7zogQNuCxBhT9/3INX9Q7H1aRZ4SUDRXAKlJuA4EA5nTt7SNw==}
 
@@ -569,6 +583,20 @@ packages:
     resolution: {integrity: sha512-RzUZAim4TfmygQDzdo+RJ6O4xJ807aFVNif9w60Y/Rgj8GFI9V/wrTby5Okrt9B7obZ5CR86HKcMjlhJAwIxHw==}
     engines: {node: '>= 16'}
     peerDependencies:
+      viem: ^2.0.0
+
+  '@worldcoin/minikit-js@1.2.0':
+    resolution: {integrity: sha512-NT6JeMebssaXsdBzIwPzJKiHYGo9wQl8CwjruHau6ctubZV70G8/6Xx/bXShbCvoeMbFkCBUr+MDy8bKLnm0iA==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      viem: ^2.0.0
+
+  '@worldcoin/minikit-react@1.2.0':
+    resolution: {integrity: sha512-/JL5NBayWtDv0W4uj2YPcNZb5OgX3h3VY3I6ab69Zej9DTqfCurYDqDTb4PGVp7S3uy042uqKGlgoB6I6SiBoA==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      '@tanstack/react-query': '>=5.0.0'
+      react: '>=18'
       viem: ^2.0.0
 
   '@xobotyi/scrollbar-width@1.9.5':
@@ -2199,6 +2227,40 @@ packages:
   tslib@2.6.3:
     resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
 
+  turbo-darwin-64@2.3.0:
+    resolution: {integrity: sha512-pji+D49PhFItyQjf2QVoLZw2d3oRGo8gJgKyOiRzvip78Rzie74quA8XNwSg/DuzM7xx6gJ3p2/LylTTlgZXxQ==}
+    cpu: [x64]
+    os: [darwin]
+
+  turbo-darwin-arm64@2.3.0:
+    resolution: {integrity: sha512-AJrGIL9BO41mwDF/IBHsNGwvtdyB911vp8f5mbNo1wG66gWTvOBg7WCtYQBvCo11XTenTfXPRSsAb7w3WAZb6w==}
+    cpu: [arm64]
+    os: [darwin]
+
+  turbo-linux-64@2.3.0:
+    resolution: {integrity: sha512-jZqW6vc2sPJT3M/3ZmV1Cg4ecQVPqsbHncG/RnogHpBu783KCSXIndgxvUQNm9qfgBYbZDBnP1md63O4UTElhw==}
+    cpu: [x64]
+    os: [linux]
+
+  turbo-linux-arm64@2.3.0:
+    resolution: {integrity: sha512-HUbDLJlvd/hxuyCNO0BmEWYQj0TugRMvSQeG8vHJH+Lq8qOgDAe7J0K73bFNbZejZQxW3C3XEiZFB3pnpO78+A==}
+    cpu: [arm64]
+    os: [linux]
+
+  turbo-windows-64@2.3.0:
+    resolution: {integrity: sha512-c5rxrGNTYDWX9QeMzWLFE9frOXnKjHGEvQMp1SfldDlbZYsloX9UKs31TzUThzfTgTiz8NYuShaXJ2UvTMnV/g==}
+    cpu: [x64]
+    os: [win32]
+
+  turbo-windows-arm64@2.3.0:
+    resolution: {integrity: sha512-7qfUuYhfIVb1AZgs89DxhXK+zZez6O2ocmixEQ4hXZK7ytnBt5vaz2zGNJJKFNYIL5HX1C3tuHolnpNgDNCUIg==}
+    cpu: [arm64]
+    os: [win32]
+
+  turbo@2.3.0:
+    resolution: {integrity: sha512-/uOq5o2jwRPyaUDnwBpOR5k9mQq4c3wziBgWNWttiYQPmbhDtrKYPRBxTvA2WpgQwRIbt8UM612RMN8n/TvmHA==}
+    hasBin: true
+
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
@@ -2772,6 +2834,13 @@ snapshots:
       mini-svg-data-uri: 1.4.4
       tailwindcss: 3.4.10
 
+  '@tanstack/query-core@5.60.5': {}
+
+  '@tanstack/react-query@5.60.5(react@18.3.1)':
+    dependencies:
+      '@tanstack/query-core': 5.60.5
+      react: 18.3.1
+
   '@types/js-cookie@2.2.6': {}
 
   '@types/json5@0.0.29': {}
@@ -2889,6 +2958,37 @@ snapshots:
       - bufferutil
       - immer
       - react
+      - typescript
+      - utf-8-validate
+      - zod
+
+  '@worldcoin/minikit-js@1.2.0(@types/react@18.3.4)(react@18.3.1)(typescript@5.5.4)(viem@2.20.0(typescript@5.5.4))':
+    dependencies:
+      '@worldcoin/idkit-core': 1.3.0(@types/react@18.3.4)(react@18.3.1)(typescript@5.5.4)
+      abitype: 1.0.6(typescript@5.5.4)
+      viem: 2.20.0(typescript@5.5.4)
+    transitivePeerDependencies:
+      - '@types/react'
+      - bufferutil
+      - immer
+      - react
+      - typescript
+      - utf-8-validate
+      - zod
+
+  '@worldcoin/minikit-react@1.2.0(@tanstack/react-query@5.60.5(react@18.3.1))(@types/react@18.3.4)(react@18.3.1)(typescript@5.5.4)(viem@2.20.0(typescript@5.5.4))':
+    dependencies:
+      '@tanstack/react-query': 5.60.5(react@18.3.1)
+      '@worldcoin/idkit-core': 1.3.0(@types/react@18.3.4)(react@18.3.1)(typescript@5.5.4)
+      '@worldcoin/minikit-js': 1.2.0(@types/react@18.3.4)(react@18.3.1)(typescript@5.5.4)(viem@2.20.0(typescript@5.5.4))
+      abitype: 1.0.6(typescript@5.5.4)
+      react: 18.3.1
+      turbo: 2.3.0
+      viem: 2.20.0(typescript@5.5.4)
+    transitivePeerDependencies:
+      - '@types/react'
+      - bufferutil
+      - immer
       - typescript
       - utf-8-validate
       - zod
@@ -4728,6 +4828,33 @@ snapshots:
       strip-bom: 3.0.0
 
   tslib@2.6.3: {}
+
+  turbo-darwin-64@2.3.0:
+    optional: true
+
+  turbo-darwin-arm64@2.3.0:
+    optional: true
+
+  turbo-linux-64@2.3.0:
+    optional: true
+
+  turbo-linux-arm64@2.3.0:
+    optional: true
+
+  turbo-windows-64@2.3.0:
+    optional: true
+
+  turbo-windows-arm64@2.3.0:
+    optional: true
+
+  turbo@2.3.0:
+    optionalDependencies:
+      turbo-darwin-64: 2.3.0
+      turbo-darwin-arm64: 2.3.0
+      turbo-linux-64: 2.3.0
+      turbo-linux-arm64: 2.3.0
+      turbo-windows-64: 2.3.0
+      turbo-windows-arm64: 2.3.0
 
   type-check@0.4.0:
     dependencies:

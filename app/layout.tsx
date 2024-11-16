@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import NextAuthProvider from "@/components/next-auth-provider";
 import Script from "next/script";
 import { Toaster } from "@/components/ui/toast";
+import ReactQueryProvider from "@/components/react-query-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,8 +32,10 @@ export default function RootLayout({
         <NextAuthProvider>
           <ErudaProvider>
             <MiniKitProvider>
-              <main>{children}</main>
-              <Toaster />
+              <ReactQueryProvider>
+                <main>{children}</main>
+                <Toaster />
+              </ReactQueryProvider>
             </MiniKitProvider>
           </ErudaProvider>
         </NextAuthProvider>

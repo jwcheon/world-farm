@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 
 export const authOptions: NextAuthOptions = {
-  //secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
 
   providers: [
     {
@@ -33,7 +33,7 @@ export const authOptions: NextAuthOptions = {
     },
     async jwt({ token, account }) {
       // add accessToken to the token
-      console.log("jwt", { token, account });
+      console.log("~~~jwt", { token, account });
       if (account?.access_token) {
         token.accessToken = account.access_token;
       }
@@ -41,7 +41,11 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token, user }) {
       // pass accessToken to the session
-      console.log("session", { session, token, user });
+      console.log("~~~session before modification", session, token);
+      // if (token?.accessToken) {
+      //   session.accessToken = token.accessToken; // Add accessToken to session
+      // }
+      console.log("~~~session after modification", session);
       return session;
     },
   },
