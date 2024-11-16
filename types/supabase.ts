@@ -9,6 +9,44 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      pets: {
+        Row: {
+          createdAt: string
+          id: string
+          pig: number
+          piggy: number
+          rabbit: number
+          updatedAt: string
+          userId: string
+        }
+        Insert: {
+          createdAt: string
+          id?: string
+          pig?: number
+          piggy?: number
+          rabbit?: number
+          updatedAt?: string
+          userId: string
+        }
+        Update: {
+          createdAt?: string
+          id?: string
+          pig?: number
+          piggy?: number
+          rabbit?: number
+          updatedAt?: string
+          userId?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pets_userId_fkey"
+            columns: ["userId"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["uuid"]
+          },
+        ]
+      }
       sessions: {
         Row: {
           createdAt: string

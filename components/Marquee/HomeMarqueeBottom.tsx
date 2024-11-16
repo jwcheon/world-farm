@@ -3,12 +3,10 @@
 import { Tractor } from "lucide-react";
 import Marquee from "react-fast-marquee";
 
-export const HomeMarquee = () => {
-  
-
+export const HomeMarqueeBottom = () => {
   return (
     <>
-      <Marquee direction="right" className="bg-blue-300 text-black h-10">
+      <Marquee direction="left" className="bg-blue-300 text-black h-10">
         <Tractor className="mx-1" />
         <Tractor className="mx-1" />
         <p className="mx-1">
