@@ -1,6 +1,7 @@
 import { MiniAppPaymentSuccessPayload } from "@worldcoin/minikit-js";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { supabase } from "../utils/supabaseClient";
 
 interface IRequestPayload {
   payload: MiniAppPaymentSuccessPayload;
@@ -12,7 +13,6 @@ export async function POST(req: NextRequest) {
   // IMPORTANT: Here we should fetch the reference you created in /initiate-payment to ensure the transaction we are verifying is the same one we initiated
   //   const reference = getReferenceFromDB();
   const cookieStore = cookies();
-
   const reference = cookieStore.get("payment-nonce")?.value;
 
   console.log(reference);
@@ -36,6 +36,12 @@ export async function POST(req: NextRequest) {
     // 2. Here we optimistically confirm the transaction.
     // Otherwise, you can poll until the status == mined
     if (transaction.reference == reference && transaction.status != "failed") {
+      await supabase
+        .from("payments")
+        .update({
+          confirmed: true
+        })
+        .eq("nonce", reference)
       return NextResponse.json({ success: true });
     } else {
       return NextResponse.json({ success: false });

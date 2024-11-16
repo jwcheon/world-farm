@@ -2,6 +2,7 @@
 
 import { HomeMarquee } from "@/components/Marquee/HomeMarquee";
 import { HomeMarqueeBottom } from "@/components/Marquee/HomeMarqueeBottom";
+import { PayBlock } from "@/components/Pay";
 import PixelPetSpace from "@/components/PixelPetSpace";
 import { useRef, useState, useEffect } from "react";
 import { toast } from "sonner";
@@ -43,8 +44,12 @@ export default function Home() {
       <HomeMarqueeBottom />
 
       {/* <SignIn />
-      <VerifyBlock />
-      <PayBlock /> */}
+      <VerifyBlock /> */}
+
+      <div className="mt-10 w-full flex flex-col justify-center items-center space-y-2">
+        <p className="text-white text-xs">Want to add more to your farm?</p>
+        <PayBlock />
+      </div>
     </main>
   );
 }
@@ -55,7 +60,7 @@ const AdditionalSpace = () => {
       onClick={() => toast("Land purchase coming soon!")}
       className="w-full h-full flex flex-col justify-center items-center text-green-400 font-extrabold text-4xl"
     >
-      <div className="text-base text-black font-normal">Expand?</div>+
+      <div className="text-xs text-black font-normal">Expand land?</div>+
     </div>
   );
 };

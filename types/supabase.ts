@@ -9,6 +9,41 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      payments: {
+        Row: {
+          claimed: boolean
+          confirmed: boolean
+          createdAt: string
+          id: number
+          nonce: string
+          userId: string
+        }
+        Insert: {
+          claimed?: boolean
+          confirmed?: boolean
+          createdAt?: string
+          id?: number
+          nonce: string
+          userId: string
+        }
+        Update: {
+          claimed?: boolean
+          confirmed?: boolean
+          createdAt?: string
+          id?: number
+          nonce?: string
+          userId?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_userId_fkey"
+            columns: ["userId"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["uuid"]
+          },
+        ]
+      }
       pets: {
         Row: {
           createdAt: string
