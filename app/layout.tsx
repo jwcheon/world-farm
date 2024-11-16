@@ -25,12 +25,12 @@ export default function RootLayout({
   );
   return (
     <html lang="en">
-      <body className="h-[100svh] w-full overflow-hidden bg-black">
+      <body className="h-[100svh] w-full flex overflow-hidden bg-black">
         {/* <NextAuthProvider> */}
         <ErudaProvider>
           <ReactQueryProvider>
             <MiniKitProvider>
-              <main>{children}</main>
+              <main className="w-full max-w-[500px]">{children}</main>
             </MiniKitProvider>
             <Navigator />
             <Toaster />
