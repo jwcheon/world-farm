@@ -9,6 +9,35 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      sessions: {
+        Row: {
+          createdAt: string
+          id: string
+          updatedAt: string
+          userId: string | null
+        }
+        Insert: {
+          createdAt?: string
+          id?: string
+          updatedAt?: string
+          userId?: string | null
+        }
+        Update: {
+          createdAt?: string
+          id?: string
+          updatedAt?: string
+          userId?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sessions_userId_fkey"
+            columns: ["userId"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["uuid"]
+          },
+        ]
+      }
       test: {
         Row: {
           created_at: string
@@ -21,6 +50,36 @@ export type Database = {
         Update: {
           created_at?: string
           id?: number
+        }
+        Relationships: []
+      }
+      users: {
+        Row: {
+          createdAt: string
+          isOrb: boolean | null
+          points: number
+          updatedAt: string
+          username: string | null
+          uuid: string
+          walletAddress: string
+        }
+        Insert: {
+          createdAt?: string
+          isOrb?: boolean | null
+          points?: number
+          updatedAt?: string
+          username?: string | null
+          uuid?: string
+          walletAddress?: string
+        }
+        Update: {
+          createdAt?: string
+          isOrb?: boolean | null
+          points?: number
+          updatedAt?: string
+          username?: string | null
+          uuid?: string
+          walletAddress?: string
         }
         Relationships: []
       }

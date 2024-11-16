@@ -27,7 +27,8 @@
     "react-fast-marquee": "^1.6.5",
     "sonner": "^1.7.0",
     "supabase": "^1.219.2",
-    "tailwind-merge": "^2.5.4"
+    "tailwind-merge": "^2.5.4",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@types/node": "^20",
