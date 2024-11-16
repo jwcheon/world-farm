@@ -7,6 +7,7 @@ import NextAuthProvider from "@/components/next-auth-provider";
 import Script from "next/script";
 import { Toaster } from "@/components/ui/toast";
 import ReactQueryProvider from "@/components/react-query-provider";
+import { Navigator } from "@/components/Navigator";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default function RootLayout({
             <MiniKitProvider>
               <ReactQueryProvider>
                 <main>{children}</main>
+                <Navigator />
                 <Toaster />
               </ReactQueryProvider>
             </MiniKitProvider>
