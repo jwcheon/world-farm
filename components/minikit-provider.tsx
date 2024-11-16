@@ -5,7 +5,7 @@ import { MiniKit } from "@worldcoin/minikit-js";
 import { ReactNode, useEffect } from "react";
 import { useNonceQuery } from "@/app/api";
 
-const WalletContext = createContext<{ walletAddress: string | null }>({
+export const WalletContext = createContext<{ walletAddress: string | null }>({
   walletAddress: null,
 });
 
@@ -13,7 +13,7 @@ export default function MiniKitProvider({ children }: { children: ReactNode }) {
   const { data: nonce, error } = useNonceQuery();
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
 
-  console.log("nonce", nonce);
+  console.log("walletAddress", walletAddress);
 
   const signInWithWallet = useCallback(async () => {
     console.log("signInWithWallet...");

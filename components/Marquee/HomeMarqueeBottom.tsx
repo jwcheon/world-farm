@@ -10,13 +10,13 @@ export const HomeMarqueeBottom = () => {
         <Tractor className="mx-1" />
         <Tractor className="mx-1" />
         <p className="mx-1">
-          Welcome to World Farm! Claim daily random gift, grow your stock, and
+          Claim daily random gift, grow your stock, and
           farm rewards!
         </p>
         <Tractor className="mx-1" />
         <Tractor className="mx-1" />
         <p className="mx-1">
-          Welcome to World Farm! Claim daily random gift, grow your stock, and
+          Claim daily random gift, grow your stock, and
           farm rewards!
         </p>
       </Marquee>
