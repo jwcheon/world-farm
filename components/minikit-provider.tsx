@@ -80,9 +80,9 @@ export default function MiniKitProvider({ children }: { children: ReactNode }) {
 
   return (
     <WalletContext.Provider value={{ walletAddress }}>
-      <div className="flex flex-col">
-        <div>{walletAddress}</div>
-        <div onClick={signInWithWallet}>sign wallet</div>
+      <div className="w-full h-full flex flex-col">
+        {/* <div>{walletAddress}</div>
+        <div onClick={signInWithWallet}>sign wallet</div> */}
         {children}
       </div>
     </WalletContext.Provider>

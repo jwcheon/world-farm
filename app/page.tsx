@@ -5,7 +5,7 @@ import { HomeMarquee } from "@/components/Marquee/HomeMarquee";
 
 export default function Home() {
   return (
-    <main className="w-full select-none">
+    <main className="w-full select-none bg-black">
       <HomeMarquee />
       {/* <SignIn />
       <VerifyBlock />

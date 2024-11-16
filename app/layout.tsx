@@ -1,15 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import MiniKitProvider from "@/components/minikit-provider";
 import dynamic from "next/dynamic";
-//import NextAuthProvider from "@/components/next-auth-provider";
 import Script from "next/script";
 import { Toaster } from "@/components/ui/toast";
 import ReactQueryProvider from "@/components/react-query-provider";
 import { Navigator } from "@/components/Navigator";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "World Farm",
@@ -29,15 +25,15 @@ export default function RootLayout({
   );
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="h-[100svh] w-full overflow-hidden bg-black">
         {/* <NextAuthProvider> */}
         <ErudaProvider>
           <ReactQueryProvider>
             <MiniKitProvider>
               <main>{children}</main>
-              <Navigator />
-              <Toaster />
             </MiniKitProvider>
+            <Navigator />
+            <Toaster />
           </ReactQueryProvider>
         </ErudaProvider>
         {/* </NextAuthProvider> */}
