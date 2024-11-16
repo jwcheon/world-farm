@@ -3,6 +3,7 @@ import { supabase } from "../../utils/supabaseClient";
 import { MiniAppWalletAuthSuccessPayload, verifySiweMessage } from "@worldcoin/minikit-js";
 import { cookies } from 'next/headers'
 import { sessionMiddleware } from "../../middleware/sessionMiddleware";
+import { fetchUsernameBe } from "../../utils/username";
 
 interface IRequestPayload {
   payload: MiniAppWalletAuthSuccessPayload
@@ -40,10 +41,25 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    let username = null;
+    try {
+      username = await fetchUsernameBe(payload.address) as {
+        username: string;
+        address: string;
+        profile_picture_url: string;
+      }[];
+      console.log("username", username)
+    } catch (error) {
+      console.error(error)
+    }
+
     // check if user exists, if not let's create a new one
     const { data: user, error } = await supabase
       .from("users")
-      .upsert({ walletAddress: payload.address }, { onConflict: "walletAddress" })
+      .upsert({
+        walletAddress: payload.address,
+        ...(username && username.length > 0 ? { username: username[0].username } : {})
+      }, { onConflict: "walletAddress" })
       .select("*")
       .single();
 

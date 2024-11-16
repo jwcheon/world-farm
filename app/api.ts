@@ -63,7 +63,7 @@ export const fetchUsername = async (address: string | null): Promise<
 
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.error || "Failed to fetch nonce");
+    throw new Error(errorData.error || "Failed to fetch username");
   }
 
   return response.json();
