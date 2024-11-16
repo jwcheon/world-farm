@@ -3,8 +3,8 @@
 import { useUsername } from "@/app/api";
 import { Tractor } from "lucide-react";
 import { useContext } from "react";
-import Marquee from "react-fast-marquee";
 import { WalletContext } from "../minikit-provider";
+import Marquee from "react-fast-marquee";
 
 export const HomeMarquee = () => {
   const { walletAddress } = useContext(WalletContext);
