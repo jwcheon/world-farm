@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "../../utils/supabaseClient";
 import { MiniAppWalletAuthSuccessPayload, verifySiweMessage } from "@worldcoin/minikit-js";
 import { cookies } from 'next/headers'
+import { sessionMiddleware } from "../../middleware/sessionMiddleware";
 
 interface IRequestPayload {
   payload: MiniAppWalletAuthSuccessPayload
@@ -10,10 +11,16 @@ interface IRequestPayload {
 
 export async function POST(req: NextRequest) {
   const { payload, nonce } = (await req.json()) as IRequestPayload;
+  await sessionMiddleware(req);
 
-  console.log({ payload, nonce });
+  console.log("1", payload);
+  console.log("2", nonce);
 
-  if (nonce != cookies().get('siwe')?.value) {
+  const storedNonce = cookies().get('siwe')?.value;
+  console.log("storedNonce", storedNonce)
+
+  if (nonce !== storedNonce) {
+    console.log("!!invalid nonce")
     return NextResponse.json({
       status: 'error',
       isValid: false,
@@ -51,12 +58,13 @@ export async function POST(req: NextRequest) {
     }
 
     // update session with userId
-    const sessionId = req.cookies.get("sid")?.value;
-    if (sessionId) {
-      await supabase.from("sessions").update({ userId: user.id }).eq("id", sessionId);
-    }
+    const cookieStore = cookies();
+    const sid = cookieStore.get("sid")?.value;
 
-    //return NextResponse.json({ message: "Authenticated", user });
+    console.log("sid", sid);
+    if (sid) {
+      await supabase.from("sessions").update({ userId: user.uuid }).eq("id", sid);
+    }
 
     return NextResponse.json({
       status: 'success',

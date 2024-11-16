@@ -32,13 +32,13 @@ export default function RootLayout({
       <body className={inter.className}>
         {/* <NextAuthProvider> */}
         <ErudaProvider>
-          <MiniKitProvider>
-            <ReactQueryProvider>
+          <ReactQueryProvider>
+            <MiniKitProvider>
               <main>{children}</main>
               <Navigator />
               <Toaster />
-            </ReactQueryProvider>
-          </MiniKitProvider>
+            </MiniKitProvider>
+          </ReactQueryProvider>
         </ErudaProvider>
         {/* </NextAuthProvider> */}
 

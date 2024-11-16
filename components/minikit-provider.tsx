@@ -1,36 +1,39 @@
-"use client"; // Required for Next.js
+"use client";
 
-import {
-  ISuccessResult,
-  MiniKit,
-  VerificationLevel,
-  VerifyCommandInput,
-} from "@worldcoin/minikit-js";
+import { createContext, useCallback, useContext, useState } from "react";
+import { MiniKit } from "@worldcoin/minikit-js";
 import { ReactNode, useEffect } from "react";
+import { useNonceQuery } from "@/app/api";
 
-const verifyPayload: VerifyCommandInput = {
-  action: "voting-action", // This is your action ID from the Developer Portal
-  signal: "0x12312", // Optional additional data
-  verification_level: VerificationLevel.Orb, // Orb | Device
-};
+const WalletContext = createContext<{ walletAddress: string | null }>({
+  walletAddress: null,
+});
 
 export default function MiniKitProvider({ children }: { children: ReactNode }) {
-  useEffect(() => {
-    MiniKit.install(process.env.NEXT_PUBLIC_APP_ID);
-    console.log(MiniKit.isInstalled());
-  }, []);
+  const { data: nonce, error } = useNonceQuery();
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
 
-  const signInWithWallet = async () => {
+  console.log("nonce", nonce);
+
+  const signInWithWallet = useCallback(async () => {
+    console.log("signInWithWallet...");
     if (!MiniKit.isInstalled()) {
+      console.log("Kit not installed");
+      return;
+    }
+    if (!nonce) {
+      console.log("No nonce");
       return;
     }
 
-    //const res = await fetch(`/api/nonce`)
-    //const { nonce } = await res.json()
+    // const res = await fetch("/api/wallet/nonce");
+    // const { nonce } = await res.json();
+
+    console.log({ nonce });
 
     const { commandPayload: generateMessageResult, finalPayload } =
       await MiniKit.commandsAsync.walletAuth({
-        nonce: "1234512345",
+        nonce: nonce.nonce,
         requestId: "0", // Optional
         expirationTime: new Date(
           new Date().getTime() + 7 * 24 * 60 * 60 * 1000
@@ -42,35 +45,46 @@ export default function MiniKitProvider({ children }: { children: ReactNode }) {
 
     console.log({ generateMessageResult, finalPayload });
 
-    // if (finalPayload.status === 'error') {
-    //   return
-    // } else {
-    //   const response = await fetch('/api/complete-siwe', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       payload: finalPayload,
-    //       nonce,
-    //     }),
-    //   })
-    // }
-  };
+    if (finalPayload.status === "error") {
+      return;
+    } else {
+      const response = await fetch("/api/wallet/auth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          payload: finalPayload,
+          nonce: nonce.nonce,
+        }),
+      });
+      console.log(await response.json());
+
+      // last check
+      setWalletAddress(MiniKit.walletAddress);
+    }
+  }, [nonce]);
+
+  useEffect(() => {
+    MiniKit.install(process.env.NEXT_PUBLIC_APP_ID);
+
+    const initiateSignIn = async () => {
+      console.log("initiateSignIn...");
+      if (MiniKit.isInstalled() && !MiniKit.walletAddress) {
+        await signInWithWallet();
+      }
+    };
+
+    initiateSignIn();
+  }, [signInWithWallet]);
 
   return (
-    <div className="flex flex-col">
-      <div className="text-red-400">{MiniKit.appId || "undef"}</div>
-      <div className="text-red-400">
-        {MiniKit.isInstalled().toString() || "undef"}
+    <WalletContext.Provider value={{ walletAddress }}>
+      <div className="flex flex-col">
+        <div>{walletAddress}</div>
+        <div onClick={signInWithWallet}>sign wallet</div>
+        {children}
       </div>
-      <div className="text-red-400">{MiniKit.walletAddress || "undef"}</div>
-      <div className="text-red-400">
-        {MiniKit.user?.walletAddress || "undef"}
-      </div>
-      <div onClick={() => signInWithWallet()}>wallet thing</div>
-      <div className="text-red-400">{MiniKit.user?.username || "undef"}</div>
-      {children}
-    </div>
+    </WalletContext.Provider>
   );
 }

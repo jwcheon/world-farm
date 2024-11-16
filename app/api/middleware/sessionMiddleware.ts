@@ -1,9 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "../utils/supabaseClient";
 import { v4 as uuidv4 } from "uuid";
+import { cookies } from "next/headers";
 
 export const sessionMiddleware = async (req: NextRequest) => {
-  let sid = req.cookies.get("sid")?.value || uuidv4();
+  const cookieStore = cookies();
+  let sid = cookieStore.get("sid")?.value;
+  if (!sid) {
+    sid = uuidv4();
+    cookies().set("sid", sid, { secure: true });
+  }
+
+  console.log("sid sessionMiddleware", sid)
 
   const { data: session, error } = await supabase
     .from("sessions")
@@ -13,11 +21,11 @@ export const sessionMiddleware = async (req: NextRequest) => {
 
   if (error) throw new Error(error.message);
 
-  if (!req.cookies.get("sid")) {
-    const response = NextResponse.next();
-    response.cookies.set("sid", sid, { httpOnly: true, maxAge: 86400 * 7 });
-    return response;
-  }
+  // if (!cookieStore.get("sid")?.value) {
+  //   const response = NextResponse.next();
+  //   response.cookies.set("sid", sid, { httpOnly: true, maxAge: 86400 * 7 });
+  //   return response;
+  // }
 
   return session;
 };
