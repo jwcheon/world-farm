@@ -5,6 +5,7 @@ import MiniKitProvider from "@/components/minikit-provider";
 import dynamic from "next/dynamic";
 import NextAuthProvider from "@/components/next-auth-provider";
 import Script from "next/script";
+import { Toaster } from "@/components/ui/toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,10 +30,13 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextAuthProvider>
           <ErudaProvider>
-            <MiniKitProvider>{children}</MiniKitProvider>
+            <MiniKitProvider>
+              <main>{children}</main>
+              <Toaster />
+            </MiniKitProvider>
           </ErudaProvider>
         </NextAuthProvider>
-        
+
         {/* Google Analytics */}
         <Script
           async
