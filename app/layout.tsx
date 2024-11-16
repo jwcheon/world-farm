@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import MiniKitProvider from "@/components/minikit-provider";
 import dynamic from "next/dynamic";
-import NextAuthProvider from "@/components/next-auth-provider";
+//import NextAuthProvider from "@/components/next-auth-provider";
 import Script from "next/script";
 import { Toaster } from "@/components/ui/toast";
 import ReactQueryProvider from "@/components/react-query-provider";
@@ -30,17 +30,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextAuthProvider>
-          <ErudaProvider>
-            <MiniKitProvider>
-              <ReactQueryProvider>
-                <main>{children}</main>
-                <Navigator />
-                <Toaster />
-              </ReactQueryProvider>
-            </MiniKitProvider>
-          </ErudaProvider>
-        </NextAuthProvider>
+        {/* <NextAuthProvider> */}
+        <ErudaProvider>
+          <MiniKitProvider>
+            <ReactQueryProvider>
+              <main>{children}</main>
+              <Navigator />
+              <Toaster />
+            </ReactQueryProvider>
+          </MiniKitProvider>
+        </ErudaProvider>
+        {/* </NextAuthProvider> */}
 
         {/* Google Analytics */}
         <Script
