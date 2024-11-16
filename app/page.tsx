@@ -22,7 +22,7 @@ export default function Home() {
   // console.log("containerWidth", containerWidth);
 
   return (
-    <main className="w-full h-full select-none bg-black">
+    <main className="w-full min-h-screen select-none bg-black">
       <HomeMarquee />
 
       {/* Pet Space Container */}

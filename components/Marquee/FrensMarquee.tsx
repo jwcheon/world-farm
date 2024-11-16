@@ -34,7 +34,7 @@ export const FrensMarquee = ({ invites }: { invites: string | number }) => {
           setClicked(true);
           toast("Where you frens at");
         }}
-        className="py-8 text-4xl text-center font-semibold text-blue-300"
+        className="py-8 text-4xl text-center font-semibold text-blue-300 bg-black w-full h-full"
       >
         Frens
       </div>

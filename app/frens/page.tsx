@@ -23,11 +23,11 @@ import { WalletContext } from "@/components/minikit-provider";
 import { FrensMarquee } from "@/components/Marquee/FrensMarquee";
 
 interface Fren {
-  name: string;
+  username: string;
 }
 
 interface WorldUser {
-  name: string;
+  username: string;
   points: number;
 }
 
@@ -36,7 +36,7 @@ interface FrensResponse {
   frensCount: number;
 }
 interface WorldUsersResponse {
-  rankers: WorldUser[];
+  users: WorldUser[];
 }
 
 export default function Frens() {
@@ -47,11 +47,7 @@ export default function Frens() {
       queryKey: ["world-users"],
       queryFn: async () => {
         const res = await fetch("/api/world-users", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({}),
+          method: "GET",
         });
         const data = await res.json();
         console.log({ data });
@@ -59,6 +55,8 @@ export default function Frens() {
       },
       staleTime: 5 * 60 * 1000,
     });
+
+  console.log("world", world);
 
   const { data, isLoading } = useQuery<FrensResponse>({
     queryKey: ["frens"],
@@ -78,7 +76,7 @@ export default function Frens() {
   });
 
   return (
-    <div className="w-full">
+    <div className="w-full min-h-screen bg-black">
       <FrensMarquee invites={data?.frensCount || "-"} />
 
       <div className="mt-7 w-full px-4">
@@ -87,14 +85,14 @@ export default function Frens() {
 
       <div className="mt-8"></div>
 
-      <Tabs defaultValue="world" className="w-full px-4">
+      <Tabs defaultValue="world" className="w-full px-4 text-white">
         <TabsList className="grid w-full grid-cols-2 mb-6">
           <TabsTrigger value="world">World</TabsTrigger>
           <TabsTrigger value="frens">My Frens</TabsTrigger>
         </TabsList>
         <TabsContent value="world">
           {isLoadingWorld && <LoadingSpinner />}
-          {!isLoadingWorld && <WorldList frens={world?.rankers || []} />}
+          {!isLoadingWorld && <WorldList frens={world?.users || []} />}
         </TabsContent>
         <TabsContent value="frens">
           {isLoading && <LoadingSpinner />}
@@ -174,14 +172,14 @@ const FrenList = ({ frens }: { frens: Fren[] }) => {
         >
           <div className="w-2/12 flex justify-start items-center">
             <MinidenticonImg
-              username={fren.name}
+              username={fren.username}
               saturation="30"
               width="50"
               height="50"
             />
           </div>
           <div className="w-8/12 flex flex-col space-y-1">
-            <div>{fren.name}</div>
+            <div>{fren.username}</div>
           </div>
           <div className="w-2/12 text-end">#{index + 1}</div>
         </div>
@@ -192,6 +190,7 @@ const FrenList = ({ frens }: { frens: Fren[] }) => {
 };
 
 const WorldList = ({ frens }: { frens: Fren[] }) => {
+  console.log("Worldlist frens", frens);
   return (
     <>
       {frens.map((fren, index) => (
@@ -201,14 +200,14 @@ const WorldList = ({ frens }: { frens: Fren[] }) => {
         >
           <div className="w-2/12 flex justify-start items-center">
             <MinidenticonImg
-              username={fren.name}
+              username={fren.username}
               saturation="30"
               width="50"
               height="50"
             />
           </div>
           <div className="w-8/12 flex flex-col space-y-1">
-            <div>{fren.name}</div>
+            <div>{fren.username}</div>
           </div>
           <div className="w-2/12 text-end">#{index + 1}</div>
         </div>
