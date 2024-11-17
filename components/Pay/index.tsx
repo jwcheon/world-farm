@@ -6,9 +6,10 @@ import {
   Tokens,
   PayCommandInput,
 } from "@worldcoin/minikit-js";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { toast } from "sonner";
+import { ScratchCardFlip } from "../Scratch/ScratchCardFlip";
 
 export const PayBlock = () => {
   const [loading, setLoading] = useState(false);
@@ -68,14 +69,11 @@ export const PayBlock = () => {
     }
 
     if (response.status == "success") {
-      const res = await fetch(
-        `${process.env.NEXTAUTH_URL}/api/confirm-payment`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ payload: response }),
-        }
-      );
+      const res = await fetch(`/api/confirm-payment`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ payload: response }),
+      });
       const payment = await res.json();
       if (payment.success) {
         // Congrats your payment was successful!
@@ -93,26 +91,40 @@ export const PayBlock = () => {
   };
 
   const handleCard = async () => {
-    toast("Claim");
+    toast("Claiming...");
+
+    const res = await fetch(`/api/confirm-payment`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ payload: nonce }),
+    });
+    const card = await res.json();
   };
 
   return (
-    <>
+    <div className="w-full flex flex-col justify-center items-center">
       {!success ? (
         <button
-          className="bg-blue-500 min-w-[100px] min-h-[40px] font-medium p-4 rounded-2xl flex justify-center items-center"
+          className="bg-blue-500 max-w-[200px] min-h-[40px] font-medium p-4 rounded-2xl flex justify-center items-center"
           onClick={handlePay}
         >
           {!loading ? "Add more stock!" : <LoadingSpinner />}
         </button>
       ) : (
-        <button
-          className="bg-blue-500 min-w-[100px] min-h-[40px] font-medium p-4 rounded-2xl flex justify-center items-center"
-          onClick={handleCard}
-        >
-          {!loading ? "Claim" : <LoadingSpinner />}
-        </button>
+        <>
+          <button
+            className="bg-blue-500 max-w-[200px] min-h-[40px] font-medium p-4 rounded-2xl flex justify-center items-center"
+            onClick={handleCard}
+          >
+            {!loading ? "Claim" : <LoadingSpinner />}
+          </button>
+
+          <div className="mt-10" />
+          <ScratchCardFlip />
+        </>
       )}
-    </>
+      <div className="mt-10" />
+      <ScratchCardFlip />
+    </div>
   );
 };

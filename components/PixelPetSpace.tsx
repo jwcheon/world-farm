@@ -44,86 +44,86 @@ interface PixelPetSpaceProps {
   spaceSize?: number;
 }
 
+// Updated sprite sheet configurations
+export const spriteSheetConfigs: Record<SpriteType, SpriteSheetConfig> = {
+  "rabbit-normal": {
+    path: "/sprites/rabbit-move.png",
+    width: 768,
+    height: 512,
+    framesPerRow: 6,
+    frameWidth: 128,
+    frameHeight: 128,
+    spriteOffsetX: 50,
+    spriteOffsetY: 57,
+    spriteSize: 28,
+    scaleFactor: 2,
+    frameCount: 6,
+    hasDirections: true,
+  },
+  "rabbit-horn": {
+    path: "/sprites/rabbit-horn-move.png",
+    width: 768,
+    height: 512,
+    framesPerRow: 6,
+    frameWidth: 128,
+    frameHeight: 128,
+    spriteOffsetX: 50,
+    spriteOffsetY: 57,
+    spriteSize: 28,
+    scaleFactor: 2,
+    frameCount: 6,
+    hasDirections: true,
+  },
+  "pig-move": {
+    path: "/sprites/pig-move.png",
+    width: 768,
+    height: 512,
+    framesPerRow: 6,
+    frameWidth: 128,
+    frameHeight: 128,
+    spriteOffsetX: 46,
+    spriteOffsetY: 53,
+    spriteSize: 36,
+    scaleFactor: 2,
+    frameCount: 6,
+    hasDirections: true,
+  },
+  "piggy-move": {
+    path: "/sprites/piggy-move.png",
+    width: 768,
+    height: 512,
+    framesPerRow: 6,
+    frameWidth: 128,
+    frameHeight: 128,
+    spriteOffsetX: 52,
+    spriteOffsetY: 62,
+    spriteSize: 22,
+    scaleFactor: 2,
+    frameCount: 6,
+    hasDirections: true,
+  },
+  "boar-move": {
+    path: "/sprites/boar-move.png",
+    width: 768,
+    height: 512,
+    framesPerRow: 6,
+    frameWidth: 128,
+    frameHeight: 128,
+    spriteOffsetX: 44,
+    spriteOffsetY: 50,
+    spriteSize: 40,
+    scaleFactor: 2,
+    frameCount: 6,
+    hasDirections: true,
+  },
+};
+
 const PixelPetSpace: React.FC<PixelPetSpaceProps> = ({
   petConfigs,
   spaceSize = 400,
 }) => {
   const [pets, setPets] = useState<Pet[]>([]);
   const changeDirectionChance = 0.02;
-
-  // Updated sprite sheet configurations
-  const spriteSheetConfigs: Record<SpriteType, SpriteSheetConfig> = {
-    "rabbit-normal": {
-      path: "/sprites/rabbit-move.png",
-      width: 768,
-      height: 512,
-      framesPerRow: 6,
-      frameWidth: 128,
-      frameHeight: 128,
-      spriteOffsetX: 50,
-      spriteOffsetY: 57,
-      spriteSize: 28,
-      scaleFactor: 2,
-      frameCount: 6,
-      hasDirections: true,
-    },
-    "rabbit-horn": {
-      path: "/sprites/rabbit-horn-move.png",
-      width: 768,
-      height: 512,
-      framesPerRow: 6,
-      frameWidth: 128,
-      frameHeight: 128,
-      spriteOffsetX: 50,
-      spriteOffsetY: 57,
-      spriteSize: 28,
-      scaleFactor: 2,
-      frameCount: 6,
-      hasDirections: true,
-    },
-    "pig-move": {
-      path: "/sprites/pig-move.png",
-      width: 768,
-      height: 512,
-      framesPerRow: 6,
-      frameWidth: 128,
-      frameHeight: 128,
-      spriteOffsetX: 46,
-      spriteOffsetY: 53,
-      spriteSize: 36,
-      scaleFactor: 2,
-      frameCount: 6,
-      hasDirections: true,
-    },
-    "piggy-move": {
-      path: "/sprites/piggy-move.png",
-      width: 768,
-      height: 512,
-      framesPerRow: 6,
-      frameWidth: 128,
-      frameHeight: 128,
-      spriteOffsetX: 52,
-      spriteOffsetY: 62,
-      spriteSize: 22,
-      scaleFactor: 2,
-      frameCount: 6,
-      hasDirections: true,
-    },
-    "boar-move": {
-      path: "/sprites/boar-move.png",
-      width: 768,
-      height: 512,
-      framesPerRow: 6,
-      frameWidth: 128,
-      frameHeight: 128,
-      spriteOffsetX: 44,
-      spriteOffsetY: 50,
-      spriteSize: 40,
-      scaleFactor: 2,
-      frameCount: 6,
-      hasDirections: true,
-    },
-  };
 
   const getRandomDirection = () => {
     const angle = Math.random() * 2 * Math.PI;
@@ -232,7 +232,7 @@ interface PixelPetProps {
   spriteSheetConfig: SpriteSheetConfig;
 }
 
-const PixelPet: React.FC<PixelPetProps> = ({ pet, spriteSheetConfig }) => {
+export const PixelPet: React.FC<PixelPetProps> = ({ pet, spriteSheetConfig }) => {
   const directionRow = spriteSheetConfig.hasDirections
     ? {
         down: 0,
