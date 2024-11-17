@@ -6,7 +6,7 @@ import {
   Tokens,
   PayCommandInput,
 } from "@worldcoin/minikit-js";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { toast } from "sonner";
 import { ScratchCardFlip } from "../Scratch/ScratchCardFlip";
@@ -112,19 +112,18 @@ export const PayBlock = () => {
         </button>
       ) : (
         <>
-          <button
+          {/* <button
             className="bg-blue-500 max-w-[200px] min-h-[40px] font-medium p-4 rounded-2xl flex justify-center items-center"
             onClick={handleCard}
           >
             {!loading ? "Claim" : <LoadingSpinner />}
-          </button>
+          </button> */}
 
           <div className="mt-10" />
-          <ScratchCardFlip />
+          <ScratchCardFlip setSuccess={setSuccess} />
         </>
       )}
       <div className="mt-10" />
-      <ScratchCardFlip />
     </div>
   );
 };

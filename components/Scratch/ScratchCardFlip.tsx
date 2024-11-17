@@ -1,13 +1,20 @@
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import ScratchCard from "./ScratchCard";
 import ReactCardFlip from "react-card-flip";
 import { Rabbit, Sprout } from "lucide-react";
 import { toast } from "sonner";
+import { useBunnies } from "@/hooks/useBunnies";
 
 const losingItems = ["rabbit", "piggy", "boar"];
 
-export const ScratchCardFlip = () => {
+export const ScratchCardFlip = ({
+  setSuccess,
+}: {
+  setSuccess: Dispatch<SetStateAction<boolean>>;
+}) => {
   const [isFlipped, setIsFlipped] = useState(false);
+
+  const { increaseBunnyCount } = useBunnies();
 
   const innerDivRef = useRef<HTMLDivElement | null>(null);
   const [width, setWidth] = useState<number | undefined>(undefined);
@@ -93,6 +100,8 @@ export const ScratchCardFlip = () => {
             height={height}
             handleCoverScratched={() => {
               toast(`You got ${prize} bunnies`);
+              prize && increaseBunnyCount(prize);
+              setSuccess(false);
             }}
           />
         )}

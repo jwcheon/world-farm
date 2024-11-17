@@ -6,6 +6,8 @@ import Script from "next/script";
 import { Toaster } from "@/components/ui/toast";
 import ReactQueryProvider from "@/components/react-query-provider";
 import { Navigator } from "@/components/Navigator";
+import { PointsProvider } from "@/hooks/usePoints";
+import { BunniesProvider } from "@/hooks/useBunnies";
 
 export const metadata: Metadata = {
   title: "World Farm",
@@ -29,9 +31,13 @@ export default function RootLayout({
         {/* <NextAuthProvider> */}
         <ErudaProvider>
           <ReactQueryProvider>
-            <MiniKitProvider>
-              <main className="w-full max-w-[500px]">{children}</main>
-            </MiniKitProvider>
+            <PointsProvider>
+              <MiniKitProvider>
+                <BunniesProvider>
+                  <main className="w-full max-w-[500px]">{children}</main>
+                </BunniesProvider>
+              </MiniKitProvider>
+            </PointsProvider>
             <Navigator />
             <Toaster />
           </ReactQueryProvider>

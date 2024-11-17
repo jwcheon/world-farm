@@ -4,13 +4,19 @@ import { HomeMarquee } from "@/components/Marquee/HomeMarquee";
 import { HomeMarqueeBottom } from "@/components/Marquee/HomeMarqueeBottom";
 import { PayBlock } from "@/components/Pay";
 import PixelPetSpace from "@/components/PixelPetSpace";
-import { useRef, useState, useEffect } from "react";
+import { usePoints } from "@/hooks/usePoints";
 import { toast } from "sonner";
-// import { PayBlock } from "@/components/Pay";
-// import { SignIn } from "@/components/SignIn";
-// import { VerifyBlock } from "@/components/Verify";
+import { useUsername } from "./api";
+import { useContext } from "react";
+import { WalletContext } from "@/components/minikit-provider";
+import { useBunnies } from "@/hooks/useBunnies";
 
 export default function Home() {
+  const { points } = usePoints();
+  const { walletAddress } = useContext(WalletContext);
+  const { data: username } = useUsername(walletAddress);
+  const { bunnies } = useBunnies();
+
   // const containerRef = useRef<HTMLDivElement>(null);
   // const [containerWidth, setContainerWidth] = useState<number>(0);
 
@@ -33,7 +39,7 @@ export default function Home() {
           <PixelPetSpace
             petConfigs={[
               { type: "piggy-move", count: 1 },
-              { type: "rabbit-normal", count: 1 },
+              { type: "rabbit-normal", count: bunnies },
             ]}
             spaceSize={200}
           />
@@ -43,10 +49,15 @@ export default function Home() {
 
       <HomeMarqueeBottom />
 
+      <div className="w-full text-white flex justify-center mt-10">
+        {username && username.length ? `@${username[0].username}` : ""} Points:{" "}
+        {points}
+      </div>
+
       {/* <SignIn />
       <VerifyBlock /> */}
 
-      <div className="mt-10 w-full flex flex-col justify-center items-center space-y-2">
+      <div className="mt-6 w-full flex flex-col justify-center items-center space-y-2">
         <p className="text-white text-xs">Want to add more to your farm?</p>
         <PayBlock />
       </div>
